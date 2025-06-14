@@ -368,11 +368,11 @@ nav a:hover {
 .social-icons a {
     color: #fff;
     font-size: 24px;
-    transition: color 0.3s;
+    transition: transform 0.3s ease;
 }
 
 .social-icons a:hover {
-    color: #0C70F2;
+    transform: translateY(-3px);
 }
 
 .footer-bottom {
@@ -610,4 +610,66 @@ nav a:hover {
     top: 24px;
     left: 16px;
   }
+}
+
+.logo-fixed {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 1000;
+    background: rgba(255,255,255,0.0);
+    padding: 0;
+}
+.logo-fixed img {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+@media (max-width: 600px) {
+    .logo-fixed {
+        top: 12px;
+        right: 12px;
+    }
+    .logo-fixed img {
+        height: 36px;
+    }
+}
+
+/* Form Validation Styles */
+.form-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    display: none;
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+input:invalid:not(:placeholder-shown) + .error-message {
+    display: block;
+}
+
+input:invalid:not(:placeholder-shown) {
+    border-color: var(--error-color);
+}
+
+input:valid {
+    border-color: var(--success-color);
+}
+
+/* Hero Background */
+.hero {
+    background: linear-gradient(rgba(10,30,60,0.7), rgba(10,30,60,0.7)), url('assets/images/hero-bg.jpg') center center / cover no-repeat;
+}
+
+/* Social Links */
+.social-icons a {
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
 }

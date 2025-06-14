@@ -4,12 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Curso gratuito de Introdução à Tecnologia da DNC School">
+    <meta name="description" content="Curso gratuito de Introdução à Tecnologia da DNC School. Aprenda os fundamentos da tecnologia e dê os primeiros passos na sua carreira.">
+    <meta name="keywords" content="DNC School, curso de tecnologia, introdução à tecnologia, programação, desenvolvimento web">
+    <meta name="author" content="DNC School">
+    <meta property="og:title" content="DNC School - Introdução à Tecnologia">
+    <meta property="og:description" content="Curso gratuito de Introdução à Tecnologia da DNC School">
+    <meta property="og:image" content="assets/images/hero-bg.jpg">
+    <meta property="og:url" content="https://www.dnc.com.br">
     <title>DNC School - Introdução à Tecnologia</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="logo-fixed">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Logo_DNC.png" alt="Logo DNC" height="48">
+    </div>
     <main>
         <section class="hero">
             <div class="logo">
@@ -32,7 +42,7 @@
         <section class="about">
             <div class="about-content container">
                 <div class="about-video">
-                    <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=600&h=400" alt="Thumbnail do vídeo" />
+                    <img src="assets/images/video-thumb.jpg" alt="Thumbnail do vídeo" />
                 </div>
                 <div class="about-text">
                     <h2>Aprenda com especialistas e comece seu primeiro projeto</h2>
@@ -63,10 +73,19 @@
         <section class="contact">
             <div class="container">
                 <h2>Comece agora mesmo e dê o próximo passo da sua carreira</h2>
-                <form class="contact-form">
-                    <input type="text" name="nome" placeholder="Nome" required>
-                    <input type="email" name="email" placeholder="E-mail" required>
-                    <input type="tel" name="telefone" placeholder="Telefone" required>
+                <form class="contact-form" id="contactForm" novalidate>
+                    <div class="form-group">
+                        <input type="text" name="nome" placeholder="Nome" required minlength="3" pattern="[A-Za-zÀ-ÿ\s]+">
+                        <span class="error-message">Por favor, insira um nome válido (apenas letras)</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="E-mail" required>
+                        <span class="error-message">Por favor, insira um e-mail válido</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="telefone" placeholder="Telefone" required pattern="\(\d{2}\)\s\d{5}-\d{4}">
+                        <span class="error-message">Por favor, insira um telefone válido (XX) XXXXX-XXXX</span>
+                    </div>
                     <button type="submit" class="button">Acesse a ementa grátis</button>
                 </form>
             </div>
@@ -82,9 +101,9 @@
                 </div>
                 <div class="footer-social">
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="https://instagram.com/dncschool" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/company/dncschool" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://youtube.com/dncschool" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>

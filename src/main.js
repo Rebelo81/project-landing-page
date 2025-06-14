@@ -85,50 +85,52 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Validação do formulário
-if (form) {
+// Máscara para o campo de telefone
+document.addEventListener('DOMContentLoaded', function() {
+    const phoneInput = document.querySelector('input[name="telefone"]');
+    
+    phoneInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
+        
+        if (value.length > 0) {
+            value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+            if (value.length > 9) {
+                value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            }
+        }
+        
+        e.target.value = value;
+    });
+
+    // Validação do formulário
+    const form = document.getElementById('contactForm');
+    
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        const nome = form.querySelector('input[name="nome"]').value.trim();
-        const email = form.querySelector('input[name="email"]').value.trim();
-        const telefone = form.querySelector('input[name="telefone"]').value.trim();
-        let isValid = true;
-        let errorMessage = '';
-        if (nome.length < 3) {
-            isValid = false;
-            errorMessage = 'Por favor, insira um nome válido (mínimo 3 caracteres).';
-        }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            isValid = false;
-            errorMessage = 'Por favor, insira um email válido.';
-        }
-        const telefoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
-        if (!telefoneRegex.test(telefone)) {
-            isValid = false;
-            errorMessage = 'Por favor, insira um telefone válido no formato (99) 99999-9999.';
-        }
-        if (isValid) {
-            alert('Formulário enviado com sucesso! Em breve entraremos em contato.');
+        
+        if (form.checkValidity()) {
+            // Aqui você pode adicionar o código para enviar o formulário
+            alert('Formulário enviado com sucesso!');
             form.reset();
         } else {
-            alert(errorMessage);
+            // Mostra as mensagens de erro
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => {
+                if (!input.validity.valid) {
+                    input.classList.add('invalid');
+                }
+            });
         }
     });
-}
 
-// Máscara para o campo de telefone
-const telefoneInput = document.querySelector('input[name="telefone"]');
-if (telefoneInput) {
-    telefoneInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length <= 11) {
-            value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
-            value = value.replace(/(\d)(\d{4})$/, '$1-$2');
-            e.target.value = value;
-        }
+    // Remove a classe invalid quando o usuário começa a digitar
+    form.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', function() {
+            this.classList.remove('invalid');
+        });
     });
-}
+});
 
 // Animação de scroll para elementos
 const scrollObserver = new IntersectionObserver((entries) => {
@@ -196,4 +198,34 @@ menuButton.addEventListener('click', () => {
     menuButton.innerHTML = nav.classList.contains('active') 
         ? '<i class="fas fa-times"></i>' 
         : '<i class="fas fa-bars"></i>';
+});
+
+// Animação suave ao rolar
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Animação de fade-in para elementos
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.card, .benefit, .about-content, .testimonial-card').forEach(el => {
+    observer.observe(el);
 }); 

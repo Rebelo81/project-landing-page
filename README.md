@@ -11,19 +11,15 @@ project-landing-page/
 │       └── ci.yml            # CI/CD (validação de HTML/CSS/JS em PRs)
 ├── src/                      
 │   ├── assets/
-│   │   ├── images/
-│   │   └── fonts/           
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   └── main.js
-│   └── index.html
+│   │   └── images/          # Imagens do projeto
+│   ├── index.html           # Página principal
+│   ├── style.css            # Estilos CSS
+│   └── main.js              # JavaScript principal
 ├── scripts/
-│   └── setup.sh             
-├── .env.example             
-├── .gitignore               
-├── package.json             
-└── README.md                
+│   └── setup.sh             # Script de configuração
+├── .gitignore               # Arquivos ignorados pelo git
+├── package.json             # Dependências e scripts
+└── README.md                # Este arquivo
 ```
 
 ## Requisitos
@@ -35,7 +31,7 @@ project-landing-page/
 
 1. Clone o repositório:
 ```bash
-git clone [URL_DO_REPOSITÓRIO]
+git clone https://github.com/Rebelo81/project-landing-page.git
 cd project-landing-page
 ```
 
@@ -89,4 +85,4 @@ O projeto inclui um pipeline de CI/CD que:
 
 ## Licença
 
-[Adicione sua licença aqui] 
+Este projeto está sob a licença MIT. 
