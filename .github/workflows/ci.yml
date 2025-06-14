@@ -15,22 +15,21 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
           
       - name: Install dependencies
         run: npm install
         
+      - name: Install validators
+        run: |
+          npm install -g htmlhint stylelint eslint
+          npm install -g stylelint-config-standard
+          
       - name: Validate HTML
-        run: |
-          npm install -g htmlhint
-          htmlhint src/**/*.html
-          
+        run: htmlhint src/**/*.html
+        
       - name: Validate CSS
-        run: |
-          npm install -g stylelint
-          stylelint "src/**/*.css"
-          
+        run: stylelint "src/**/*.css"
+        
       - name: Validate JavaScript
-        run: |
-          npm install -g eslint
-          eslint "src/**/*.js" 
+        run: eslint "src/**/*.js" 
