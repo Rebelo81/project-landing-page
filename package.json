@@ -1,0 +1,23 @@
+{
+  "name": "project-landing-page",
+  "version": "1.0.0",
+  "description": "Landing page project",
+  "scripts": {
+    "start": "live-server src",
+    "build": "npm run lint && npm run build:css",
+    "build:css": "postcss src/css/style.css -o dist/style.css",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint:html": "htmlhint src/**/*.html",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:js": "eslint \"src/**/*.js\""
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.40.0",
+    "htmlhint": "^1.1.4",
+    "live-server": "^1.2.2",
+    "postcss": "^8.4.24",
+    "postcss-cli": "^10.1.0",
+    "stylelint": "^15.6.2"
+  }
+} 
