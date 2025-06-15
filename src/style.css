@@ -8,12 +8,12 @@
     --primary-color: #0C70F2;
     --secondary-color: #1E1E1E;
     --text-color: #1E1E1E;
-    --light-text: #FFFFFF;
-    --background-color: #FFFFFF;
+    --light-text: #FFF;
+    --background-color: #FFF;
     --gray-background: #F9F9F9;
     --border-color: #E5E5E5;
     --success-color: #00C851;
-    --error-color: #FF4444;
+    --error-color: #F44;
     --font-family: 'Inter', sans-serif;
     --accent-color: #2986a8;
 }
@@ -23,7 +23,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', Arial, sans-serif;
+    font-family: Inter, Arial, sans-serif;
     color: #1e293b;
     background: #fff;
     margin: 0;
@@ -86,7 +86,7 @@ textarea {
 .p-1 { padding: 1rem; }
 
 /* Responsividade */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     body {
         font-size: 14px;
     }
@@ -102,7 +102,7 @@ textarea {
     position: absolute;
     width: 100%;
     z-index: 10;
-    padding: 32px 0 0 0;
+    padding: 32px 0 0;
 }
 
 .header .logo img {
@@ -144,7 +144,7 @@ nav a:hover {
 .hero {
     position: relative;
     min-height: 100vh;
-    background: linear-gradient(rgba(10,30,60,0.7), rgba(10,30,60,0.7)), url('imagens/4c6e1d15dcc0f02bbea63b51a27ea441a9d56284.jpg') center center / cover no-repeat;
+    background: linear-gradient(rgb(10 30 60 / 70%), rgb(10 30 60 / 70%)), url('imagens/4c6e1d15dcc0f02bbea63b51a27ea441a9d56284.jpg') center center / cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,7 +164,7 @@ nav a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(10,30,60,0.7), rgba(10,30,60,0.7));
+    background: linear-gradient(rgb(10 30 60 / 70%), rgb(10 30 60 / 70%));
     z-index: 1;
 }
 
@@ -263,7 +263,7 @@ nav a:hover {
     padding: 24px;
     max-width: 340px;
     min-width: 260px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 7%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -293,7 +293,7 @@ nav a:hover {
 /* Contato */
 .contact {
     background: #fff;
-    padding: 48px 0 64px 0;
+    padding: 48px 0 64px;
 }
 
 .contact h2 {
@@ -338,7 +338,7 @@ nav a:hover {
 .footer {
     background: #1e293b;
     color: #fff;
-    padding: 32px 0 16px 0;
+    padding: 32px 0 16px;
 }
 
 .footer-content {
@@ -346,7 +346,7 @@ nav a:hover {
     justify-content: space-between;
     align-items: center;
     max-width: 900px;
-    margin: 0 auto 16px auto;
+    margin: 0 auto 16px;
 }
 
 .footer-info h3 {
@@ -381,16 +381,18 @@ nav a:hover {
 }
 
 /* Responsive Design */
-@media (max-width: 900px) {
+@media (width <= 900px) {
     .about-content, .footer-content {
         flex-direction: column;
         gap: 24px;
         text-align: center;
     }
+
     .about-video img {
         width: 100%;
         max-width: 320px;
     }
+
     .testimonials-grid {
         flex-direction: column;
         align-items: center;
@@ -403,6 +405,7 @@ nav a:hover {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -448,7 +451,7 @@ nav a:hover {
 
 .feature:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
 }
 
 .testimonial-card {
@@ -457,7 +460,7 @@ nav a:hover {
 
 .testimonial-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
 }
 
 /* Alertas */
@@ -500,7 +503,7 @@ nav a:hover {
     position: absolute;
     width: 150px;
     height: 150px;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+    background: radial-gradient(circle, rgb(255 255 255 / 10%) 0%, rgb(255 255 255 / 0%) 70%);
     transform: translate(-50%, -50%);
     pointer-events: none;
     opacity: 0;
@@ -519,6 +522,7 @@ nav a:hover {
         transform: translateY(-20px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -526,7 +530,7 @@ nav a:hover {
 }
 
 /* Responsividade do Menu */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .menu-toggle {
         display: block;
     }
@@ -586,7 +590,7 @@ nav a:hover {
 }
 
 /* Ajustes responsivos para imagens */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .hero-image img {
         margin-top: 2rem;
     }
@@ -609,7 +613,7 @@ nav a:hover {
     width: auto;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .logo-fixed {
         top: 10px;
         right: 10px;
