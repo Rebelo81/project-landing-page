@@ -18,18 +18,14 @@ jobs:
           node-version: "18"
           
       - name: Install dependencies
-        run: npm install
-        
-      - name: Install validators
-        run: |
-          npm install -g htmlhint stylelint eslint
-          npm install -g stylelint-config-standard
+        run: npm ci
           
       - name: Validate HTML
-        run: htmlhint src/**/*.html
+        run: npx htmlhint "src/**/*.html"
         
       - name: Validate CSS
-        run: stylelint "src/**/*.css"
+        run: npx stylelint "src/**/*.css"
         
       - name: Validate JavaScript
-        run: eslint "src/**/*.js" --fix
+        run: npx eslint "src/**/*.js" --fix
+
