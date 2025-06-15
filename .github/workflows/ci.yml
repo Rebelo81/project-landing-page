@@ -32,4 +32,4 @@ jobs:
         run: stylelint "src/**/*.css"
         
       - name: Validate JavaScript
-        run: eslint "src/**/*.js"
+        run: eslint "src/**/*.js" --fix

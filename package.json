@@ -19,5 +19,6 @@
     "postcss": "^8.4.24",
     "postcss-cli": "^10.1.0",
     "stylelint": "^15.6.2"
-  }
+  },
+  "type": "module"
 }
