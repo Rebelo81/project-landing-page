@@ -6,29 +6,35 @@ const statNumbers = document.querySelectorAll('.stat-number');
 const cards = document.querySelectorAll('.card');
 
 // Header com efeito de scroll
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-        header.style.backdropFilter = 'blur(10px)';
-    } else {
-        header.style.backgroundColor = 'var(--background-color)';
-        header.style.backdropFilter = 'none';
-    }
-});
+if (header) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            header.style.backdropFilter = 'blur(10px)';
+        } else {
+            header.style.backgroundColor = 'var(--background-color)';
+            header.style.backdropFilter = 'none';
+        }
+    });
+}
 
 // Scroll suave para links do menu
-menuItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = item.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        window.scrollTo({
-            top: targetSection.offsetTop - header.offsetHeight,
-            behavior: 'smooth'
+if (menuItems.length > 0) {
+    menuItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = item.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection && header) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - header.offsetHeight,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
-});
+}
 
 // Animação de números
 function animateNumbers() {
@@ -58,17 +64,17 @@ function animateNumbers() {
 }
 
 // Observador de interseção para animação dos números
-const observer = new IntersectionObserver((entries) => {
+const numberObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             animateNumbers();
-            observer.unobserve(entry.target);
+            numberObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.5 });
 
-document.querySelector('.hero-stats').querySelectorAll('.stat').forEach(stat => {
-    observer.observe(stat);
+document.querySelector('.hero-stats')?.querySelectorAll('.stat').forEach(stat => {
+    numberObserver.observe(stat);
 });
 
 // Smooth scroll para links de navegação
@@ -185,20 +191,22 @@ cards.forEach(card => {
 });
 
 // Menu mobile
-const menuButton = document.createElement('button');
-menuButton.className = 'menu-toggle';
-menuButton.innerHTML = '<i class="fas fa-bars"></i>';
-menuButton.setAttribute('aria-label', 'Toggle menu');
-
 const nav = document.querySelector('nav');
-header.insertBefore(menuButton, nav);
+if (nav && header) {
+    const menuButton = document.createElement('button');
+    menuButton.className = 'menu-toggle';
+    menuButton.innerHTML = '<i class="fas fa-bars"></i>';
+    menuButton.setAttribute('aria-label', 'Toggle menu');
 
-menuButton.addEventListener('click', () => {
-    nav.classList.toggle('active');
-    menuButton.innerHTML = nav.classList.contains('active') 
-        ? '<i class="fas fa-times"></i>' 
-        : '<i class="fas fa-bars"></i>';
-});
+    header.insertBefore(menuButton, nav);
+
+    menuButton.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        menuButton.innerHTML = nav.classList.contains('active') 
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
+    });
+}
 
 // Animação suave ao rolar
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
