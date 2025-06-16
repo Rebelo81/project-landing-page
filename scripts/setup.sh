@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Checar se o npm está instalado
+if ! command -v npm &> /dev/null; then
+    echo "Erro: npm não está instalado. Por favor, instale o Node.js e o npm antes de continuar."
+    exit 1
+fi
+
 # Criar diretórios necessários
 mkdir -p src/assets/images
 mkdir -p src/assets/fonts

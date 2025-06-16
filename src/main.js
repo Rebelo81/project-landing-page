@@ -78,64 +78,73 @@ document.querySelector(".hero-stats")?.querySelectorAll(".stat").forEach(stat =>
 });
 
 // Smooth scroll para links de navegação
-document.querySelectorAll("a[href^=\"#\"]").forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        if (target) {
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-        }
+const anchorLinks = document.querySelectorAll("a[href^=\"#\"]");
+if (anchorLinks.length > 0) {
+    anchorLinks.forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        });
     });
-});
+}
 
 // Máscara para o campo de telefone
 document.addEventListener("DOMContentLoaded", function() {
     const phoneInput = document.querySelector("input[name=\"telefone\"]");
-    
-    phoneInput.addEventListener("input", function(e) {
-        let value = e.target.value.replace(/\D/g, "");
-        if (value.length > 11) value = value.slice(0, 11);
-        
-        if (value.length > 0) {
-            value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
-            if (value.length > 9) {
-                value = value.replace(/(\d{5})(\d)/, "$1-$2");
+    if (phoneInput) {
+        phoneInput.addEventListener("input", function(e) {
+            let value = e.target.value.replace(/\D/g, "");
+            if (value.length > 11) value = value.slice(0, 11);
+            if (value.length > 0) {
+                // Aplica a máscara progressivamente
+                if (value.length <= 2) {
+                    value = `(${value}`;
+                } else if (value.length <= 7) {
+                    value = `(${value.slice(0,2)}) ${value.slice(2)}`;
+                } else {
+                    value = `(${value.slice(0,2)}) ${value.slice(2,7)}-${value.slice(7)}`;
+                }
             }
-        }
-        
-        e.target.value = value;
-    });
-
+            e.target.value = value;
+        });
+        phoneInput.addEventListener("blur", function(e) {
+            // Ao perder o foco, só mantém se estiver completo
+            const pattern = /^\(\d{2}\) \d{5}-\d{4}$/;
+            if (!pattern.test(e.target.value)) {
+                e.target.value = '';
+            }
+        });
+    }
     // Validação do formulário
     const form = document.getElementById("contactForm");
-    
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        
-        if (form.checkValidity()) {
-            // Aqui você pode adicionar o código para enviar o formulário
-            alert("Formulário enviado com sucesso!");
-            form.reset();
-        } else {
-            // Mostra as mensagens de erro
-            const inputs = form.querySelectorAll("input");
-            inputs.forEach(input => {
-                if (!input.validity.valid) {
-                    input.classList.add("invalid");
-                }
-            });
-        }
-    });
-
-    // Remove a classe invalid quando o usuário começa a digitar
-    form.querySelectorAll("input").forEach(input => {
-        input.addEventListener("input", function() {
-            this.classList.remove("invalid");
+    if (form) {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            if (form.checkValidity()) {
+                alert("Formulário enviado com sucesso!");
+                form.reset();
+            } else {
+                const inputs = form.querySelectorAll("input");
+                inputs.forEach(input => {
+                    if (!input.validity.valid) {
+                        input.classList.add("invalid");
+                    }
+                });
+            }
         });
-    });
+        // Remove a classe invalid quando o usuário começa a digitar
+        form.querySelectorAll("input").forEach(input => {
+            input.addEventListener("input", function() {
+                this.classList.remove("invalid");
+            });
+        });
+    }
 });
 
 // Animação de scroll para elementos
@@ -179,16 +188,17 @@ window.addEventListener("scroll", () => {
 });
 
 // Efeito de hover nos cards
-cards.forEach(card => {
-    card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
+if (cards.length > 0) {
+    cards.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty("--mouse-x", `${x}px`);
+            card.style.setProperty("--mouse-y", `${y}px`);
+        });
     });
-});
+}
 
 // Menu mobile
 const nav = document.querySelector("nav");
