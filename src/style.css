@@ -680,10 +680,6 @@ input:valid {
 }
 
 /* Social Links */
-.social-icons a {
-    transition: transform 0.3s ease;
-}
-
 .social-icons a:hover {
     transform: translateY(-3px);
 }
