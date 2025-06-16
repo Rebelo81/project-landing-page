@@ -646,6 +646,14 @@ nav a:hover {
     display: block;
 }
 
+/* Seletor combinado */
+.logo img, .logo-fixed img {
+    max-width: 180px;
+    height: auto;
+    background: transparent;
+    display: block;
+}
+
 /* Form Validation Styles */
 .form-group {
     position: relative;
@@ -678,11 +686,4 @@ input:valid {
 
 .social-icons a:hover {
     transform: translateY(-3px);
-}
-
-.logo img, .logo-fixed img {
-    max-width: 180px;
-    height: auto;
-    background: transparent;
-    display: block;
 }
