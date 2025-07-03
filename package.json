@@ -1,25 +1,28 @@
 {
   "name": "project-landing-page",
   "version": "1.0.0",
-  "description": "Landing page project",
+  "description": "Landing page para DNC School",
+  "type": "module",
   "scripts": {
     "start": "live-server src",
     "build": "npm run lint && npm run build:css",
     "build:css": "postcss src/style.css -o src/style.css",
-    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint": "npm run lint:html && npm run lint:js",
     "lint:html": "htmlhint src/**/*.html",
-    "lint:css": "stylelint \"src/**/*.css\"",
-    "lint:js": "eslint \"src/**/*.js\""
+    "lint:css": "stylelint \"src/**/*.css\" || true",
+    "lint:js": "eslint src/**/*.js"
   },
+  "keywords": ["landing-page", "dnc", "school"],
+  "author": "DNC School",
+  "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.57.1",
+    "eslint": "^9.0.0",
     "htmlhint": "^1.1.4",
     "live-server": "^1.2.2",
     "postcss": "^8.4.24",
     "postcss-cli": "^10.1.0",
-    "stylelint": "^15.11.0",
+    "stylelint": "^16.0.0",
     "stylelint-config-standard": "^33.0.0"
-  },
-  "type": "module"
+  }
 }

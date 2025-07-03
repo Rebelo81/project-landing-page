@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Ao perder o foco, só mantém se estiver completo
             const pattern = /^\(\d{2}\) \d{5}-\d{4}$/;
             if (!pattern.test(e.target.value)) {
-                e.target.value = '';
+                e.target.value = "";
             }
         });
     }
@@ -203,11 +203,11 @@ if (cards.length > 0) {
 // Carrossel de Depoimentos
 class TestimonialsCarousel {
     constructor() {
-        this.carousel = document.getElementById('testimonialsCarousel');
-        this.slides = document.querySelectorAll('.testimonial-slide');
-        this.prevBtn = document.getElementById('prevBtn');
-        this.nextBtn = document.getElementById('nextBtn');
-        this.indicators = document.querySelectorAll('.indicator');
+        this.carousel = document.getElementById("testimonialsCarousel");
+        this.slides = document.querySelectorAll(".testimonial-slide");
+        this.prevBtn = document.getElementById("prevBtn");
+        this.nextBtn = document.getElementById("nextBtn");
+        this.indicators = document.querySelectorAll(".indicator");
         this.currentSlide = 0;
         this.totalSlides = this.slides.length;
         this.autoplayInterval = null;
@@ -220,12 +220,12 @@ class TestimonialsCarousel {
         if (!this.carousel || this.slides.length === 0) return;
 
         // Event listeners para os botões
-        this.prevBtn?.addEventListener('click', () => this.prevSlide());
-        this.nextBtn?.addEventListener('click', () => this.nextSlide());
+        this.prevBtn?.addEventListener("click", () => this.prevSlide());
+        this.nextBtn?.addEventListener("click", () => this.nextSlide());
 
         // Event listeners para os indicadores
         this.indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => this.goToSlide(index));
+            indicator.addEventListener("click", () => this.goToSlide(index));
         });
 
         // Touch/swipe support para mobile
@@ -235,8 +235,8 @@ class TestimonialsCarousel {
         this.startAutoplay();
 
         // Pausar autoplay quando o mouse está sobre o carrossel
-        this.carousel.addEventListener('mouseenter', () => this.stopAutoplay());
-        this.carousel.addEventListener('mouseleave', () => this.startAutoplay());
+        this.carousel.addEventListener("mouseenter", () => this.stopAutoplay());
+        this.carousel.addEventListener("mouseleave", () => this.startAutoplay());
 
         // Atualizar interface inicial
         this.updateSlide();
@@ -263,17 +263,17 @@ class TestimonialsCarousel {
     updateSlide() {
         // Atualizar slides
         this.slides.forEach((slide, index) => {
-            slide.classList.remove('active');
+            slide.classList.remove("active");
             if (index === this.currentSlide) {
-                slide.classList.add('active');
+                slide.classList.add("active");
             }
         });
 
         // Atualizar indicadores
         this.indicators.forEach((indicator, index) => {
-            indicator.classList.remove('active');
+            indicator.classList.remove("active");
             if (index === this.currentSlide) {
-                indicator.classList.add('active');
+                indicator.classList.add("active");
             }
         });
 
@@ -316,16 +316,16 @@ class TestimonialsCarousel {
         let startY = 0;
         let endY = 0;
 
-        this.carousel.addEventListener('touchstart', (e) => {
+        this.carousel.addEventListener("touchstart", (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
         });
 
-        this.carousel.addEventListener('touchmove', (e) => {
+        this.carousel.addEventListener("touchmove", (e) => {
             e.preventDefault(); // Previne scroll da página
         });
 
-        this.carousel.addEventListener('touchend', (e) => {
+        this.carousel.addEventListener("touchend", (e) => {
             endX = e.changedTouches[0].clientX;
             endY = e.changedTouches[0].clientY;
 
@@ -345,7 +345,7 @@ class TestimonialsCarousel {
 }
 
 // Inicializar carrossel quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     new TestimonialsCarousel();
 });
 
