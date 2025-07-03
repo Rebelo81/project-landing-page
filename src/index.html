@@ -13,17 +13,24 @@
     <meta property="og:url" content="https://www.dnc.com.br">
     <title>DNC School - Introdução à Tecnologia</title>
     <link rel="icon" type="image/png" href="imagens/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="logo-fixed">
-        <img src="imagens/logo.png" alt="Logo DNC" height="48">
+        <a href="https://www.escoladnc.com.br/" target="_blank" rel="noopener noreferrer" title="Escola DNC">
+            <img src="imagens/logo.png" alt="Logo DNC" height="48">
+        </a>
     </div>
     <main>
         <section class="hero">
             <div class="logo">
-                <img src="imagens/logo.png" alt="Logo DNC" height="80">
+                <a href="https://www.escoladnc.com.br/" target="_blank" rel="noopener noreferrer" title="Escola DNC">
+                    <img src="imagens/logo.png" alt="Logo DNC" height="80">
+                </a>
             </div>
             <div class="container hero-content">
                 <div class="hero-text">
@@ -34,15 +41,26 @@
         </section>
 
         <section class="benefits">
-            <div class="benefit"><i class="fa fa-certificate"></i> Certificado de conclusão</div>
-            <div class="benefit"><i class="fa fa-clock"></i> 4 horas de conteúdo</div>
-            <div class="benefit"><i class="fa fa-video"></i> Aulas online gravadas</div>
+            <div class="benefit">
+                <img src="icones/certificado-novo.svg" alt="Certificado de conclusão" class="benefit-icon">
+                <span class="benefit-text">Certificado de conclusão</span>
+            </div>
+            <div class="benefit">
+                <img src="icones/iconerelogio.svg" alt="Mais de 400 horas de conteúdo" class="benefit-icon">
+                <span class="benefit-text">4 horas de conteúdo</span>
+            </div>
+            <div class="benefit">
+                <a href="#video-section" title="Assistir vídeo: Conheça a Jornada do Aluno DNC">
+                    <img src="icones/video-novo.svg" alt="Aulas online gravadas" class="benefit-icon">
+                    <span class="benefit-text">Aulas online gravadas</span>
+                </a>
+            </div>
         </section>
 
-        <section class="about">
+        <section class="about" id="video-section">
             <div class="about-content container">
                 <div class="about-video">
-                    <img src="imagens/video.svg" alt="Thumbnail do vídeo" />
+                    <iframe width="1000" height="563" src="https://www.youtube.com/embed/45BeP-XJDFA" title="Conheça a Jornada do Aluno DNC" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <div class="about-text">
                     <h2>Aprenda com especialistas e comece seu primeiro projeto</h2>
@@ -55,16 +73,60 @@
         <section class="testimonials">
             <div class="container">
                 <h2>Mais de 500 alunos já iniciaram seus estudos</h2>
-                <div class="testimonials-grid">
-                    <div class="card testimonial-card">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Bruna" class="testimonial-img">
-                        <p class="testimonial-text">"O curso da DNC School foi o ponto de partida da minha transição de carreira. Hoje já consegui minha primeira vaga na área!"</p>
-                        <p class="testimonial-author">Bruna, desenvolvedora Front-End</p>
+                <div class="carousel-container">
+                    <div class="carousel-wrapper">
+                        <div class="testimonials-carousel" id="testimonialsCarousel">
+                            <div class="testimonial-slide active">
+                                <div class="card testimonial-card">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Bruna" class="testimonial-img">
+                                    <p class="testimonial-text">"O curso da DNC School foi o ponto de partida da minha transição de carreira. Hoje já consegui minha primeira vaga na área!"</p>
+                                    <p class="testimonial-author">Bruna, desenvolvedora Front-End</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-slide">
+                                <div class="card testimonial-card">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Leonardo" class="testimonial-img">
+                                    <p class="testimonial-text">"Gostei muito da metodologia e da plataforma da Escola DNC. Os materiais são todos muito bons"</p>
+                                    <p class="testimonial-author">Leonardo, desenvolvedor Back-End</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-slide">
+                                <div class="card testimonial-card">
+                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Samantha" class="testimonial-img">
+                                    <p class="testimonial-text">"O curso da foi a mudança que eu precisava para alcançar meus objetivos profissionais"</p>
+                                    <p class="testimonial-author">Samantha, desenvolvedora Front-End</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-slide">
+                                <div class="card testimonial-card">
+                                    <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Carlos" class="testimonial-img">
+                                    <p class="testimonial-text">"A DNC me ajudou a conseguir uma transição de carreira bem-sucedida. Recomendo para todos!"</p>
+                                    <p class="testimonial-author">Carlos, desenvolvedor Full-Stack</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-slide">
+                                <div class="card testimonial-card">
+                                    <img src="https://randomuser.me/api/portraits/women/25.jpg" alt="Ana" class="testimonial-img">
+                                    <p class="testimonial-text">"Curso excelente! A metodologia é muito clara e os projetos práticos me deram confiança"</p>
+                                    <p class="testimonial-author">Ana, desenvolvedora Mobile</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card testimonial-card">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Leonardo" class="testimonial-img">
-                        <p class="testimonial-text">"Gostei muito da metodologia e da plataforma da Escola DNC. Os materiais são todos muito bons"</p>
-                        <p class="testimonial-author">Leonardo, desenvolvedor Back-End</p>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Depoimento anterior">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="carousel-indicators" id="carouselIndicators">
+                            <div class="indicator active" data-slide="0"></div>
+                            <div class="indicator" data-slide="1"></div>
+                            <div class="indicator" data-slide="2"></div>
+                            <div class="indicator" data-slide="3"></div>
+                            <div class="indicator" data-slide="4"></div>
+                        </div>
+                        <button class="carousel-btn next-btn" id="nextBtn" aria-label="Próximo depoimento">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -101,14 +163,14 @@
                 </div>
                 <div class="footer-social">
                     <div class="social-icons">
-                        <a href="https://instagram.com/dncschool" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                        <a href="https://linkedin.com/company/dncschool" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://youtube.com/dncschool" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/escoladnc/" target="_blank" rel="noopener noreferrer" title="Instagram da Escola DNC"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/school/escoladnc/" target="_blank" rel="noopener noreferrer" title="LinkedIn da Escola DNC"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.youtube.com/@EscolaDNC" target="_blank" rel="noopener noreferrer" title="YouTube da Escola DNC"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 DNC. Todos os direitos reservados.</p>
+                <p>&copy; 2025 DNC. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>

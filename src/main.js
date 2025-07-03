@@ -200,6 +200,155 @@ if (cards.length > 0) {
     });
 }
 
+// Carrossel de Depoimentos
+class TestimonialsCarousel {
+    constructor() {
+        this.carousel = document.getElementById('testimonialsCarousel');
+        this.slides = document.querySelectorAll('.testimonial-slide');
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.indicators = document.querySelectorAll('.indicator');
+        this.currentSlide = 0;
+        this.totalSlides = this.slides.length;
+        this.autoplayInterval = null;
+        this.autoplayDelay = 5000; // 5 segundos
+
+        this.init();
+    }
+
+    init() {
+        if (!this.carousel || this.slides.length === 0) return;
+
+        // Event listeners para os botões
+        this.prevBtn?.addEventListener('click', () => this.prevSlide());
+        this.nextBtn?.addEventListener('click', () => this.nextSlide());
+
+        // Event listeners para os indicadores
+        this.indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => this.goToSlide(index));
+        });
+
+        // Touch/swipe support para mobile
+        this.addTouchSupport();
+
+        // Autoplay
+        this.startAutoplay();
+
+        // Pausar autoplay quando o mouse está sobre o carrossel
+        this.carousel.addEventListener('mouseenter', () => this.stopAutoplay());
+        this.carousel.addEventListener('mouseleave', () => this.startAutoplay());
+
+        // Atualizar interface inicial
+        this.updateSlide();
+    }
+
+    nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateSlide();
+        this.resetAutoplay();
+    }
+
+    prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateSlide();
+        this.resetAutoplay();
+    }
+
+    goToSlide(index) {
+        this.currentSlide = index;
+        this.updateSlide();
+        this.resetAutoplay();
+    }
+
+    updateSlide() {
+        // Atualizar slides
+        this.slides.forEach((slide, index) => {
+            slide.classList.remove('active');
+            if (index === this.currentSlide) {
+                slide.classList.add('active');
+            }
+        });
+
+        // Atualizar indicadores
+        this.indicators.forEach((indicator, index) => {
+            indicator.classList.remove('active');
+            if (index === this.currentSlide) {
+                indicator.classList.add('active');
+            }
+        });
+
+        // Atualizar posição do carrossel
+        const translateX = -this.currentSlide * 100;
+        this.carousel.style.transform = `translateX(${translateX}%)`;
+
+        // Atualizar estado dos botões
+        this.updateButtonsState();
+    }
+
+    updateButtonsState() {
+        // Para carrossel infinito, os botões nunca ficam desabilitados
+        // mas podemos adicionar estados visuais se necessário
+        if (this.prevBtn) this.prevBtn.disabled = false;
+        if (this.nextBtn) this.nextBtn.disabled = false;
+    }
+
+    startAutoplay() {
+        this.autoplayInterval = setInterval(() => {
+            this.nextSlide();
+        }, this.autoplayDelay);
+    }
+
+    stopAutoplay() {
+        if (this.autoplayInterval) {
+            clearInterval(this.autoplayInterval);
+            this.autoplayInterval = null;
+        }
+    }
+
+    resetAutoplay() {
+        this.stopAutoplay();
+        this.startAutoplay();
+    }
+
+    addTouchSupport() {
+        let startX = 0;
+        let endX = 0;
+        let startY = 0;
+        let endY = 0;
+
+        this.carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+
+        this.carousel.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Previne scroll da página
+        });
+
+        this.carousel.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            endY = e.changedTouches[0].clientY;
+
+            const deltaX = startX - endX;
+            const deltaY = startY - endY;
+
+            // Verificar se é um swipe horizontal (não vertical)
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    this.nextSlide(); // Swipe left = próximo
+                } else {
+                    this.prevSlide(); // Swipe right = anterior
+                }
+            }
+        });
+    }
+}
+
+// Inicializar carrossel quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    new TestimonialsCarousel();
+});
+
 // Menu mobile
 const nav = document.querySelector("nav");
 if (nav && header) {

@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fundo do play button -->
+  <circle cx="32" cy="32" r="28" fill="#DC2626"/>
+  <circle cx="32" cy="32" r="26" fill="#EF4444"/>
+  
+  <!-- Sombra interna -->
+  <circle cx="32" cy="32" r="24" fill="none" stroke="#ffffff20" stroke-width="0.5"/>
+  
+  <!-- Triangulo do play -->
+  <path d="M24 20 L24 44 L44 32 Z" fill="#ffffff"/>
+  
+  <!-- Brilho no botão -->
+  <ellipse cx="28" cy="24" rx="8" ry="6" fill="#ffffff30"/>
+  
+  <!-- Bordas para dar profundidade -->
+  <circle cx="32" cy="32" r="28" fill="none" stroke="#000000" stroke-width="0.5" opacity="0.2"/>
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+</svg>
