@@ -124,11 +124,47 @@ document.addEventListener("DOMContentLoaded", function() {
     // Validação do formulário
     const form = document.getElementById("contactForm");
     if (form) {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", async function(e) {
             e.preventDefault();
+            
             if (form.checkValidity()) {
-                alert("Formulário enviado com sucesso!");
-                form.reset();
+                // Mostrar loading
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Enviando...';
+                submitBtn.disabled = true;
+                
+                try {
+                    // Preparar dados do formulário
+                    const formData = new FormData(form);
+                    
+                    // Enviar para SheetMonkey
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        // Sucesso: redirecionar para página de ementa
+                        alert("Formulário enviado com sucesso! Você será redirecionado para acessar a ementa completa do curso.");
+                        
+                        // Redirecionar para a página principal da DNC School onde podem encontrar a ementa
+                        setTimeout(() => {
+                            window.open("https://assets-global.website-files.com/66143495d3e01ad1a958beed/662bcea675351ac5fb014bf3_%5BEMENTA%20NOVA%20ID%5D%20Desenvolvedor%20Front-End-compressed_1.pdf", "_blank");
+                        }, 1000);
+                        
+                        form.reset();
+                    } else {
+                        throw new Error('Erro no servidor');
+                    }
+                } catch (error) {
+                    console.error('Erro ao enviar formulário:', error);
+                    alert("Erro ao enviar formulário. Tente novamente.");
+                } finally {
+                    // Restaurar botão
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
             } else {
                 const inputs = form.querySelectorAll("input");
                 inputs.forEach(input => {
@@ -393,6 +429,6 @@ const observer = new IntersectionObserver((entries, observer) => {
     });
 }, observerOptions);
 
-document.querySelectorAll(".card, .benefit, .about-content, .testimonial-card").forEach(el => {
+document.querySelectorAll(".card, .about-content, .testimonial-card").forEach(el => {
     observer.observe(el);
 }); 
