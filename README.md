@@ -8,7 +8,7 @@ Acesse o projeto online: [https://project-dnc.netlify.app/](https://project-dnc.
 
 ## Estrutura do Projeto
 
-```
+```markdown
 project-landing-page/
 ├── .github/
 │   └── workflows/
@@ -35,21 +35,21 @@ project-landing-page/
 
 1. Clone o repositório:
 
-```bash
-git clone https://github.com/Rebelo81/project-landing-page.git
-cd project-landing-page
-```
+   ```bash
+   git clone https://github.com/Rebelo81/project-landing-page.git
+   cd project-landing-page
+   ```
 
 2. Execute o script de setup:
 
-```bash
-./scripts/setup.sh
-```
+   ```bash
+   ./scripts/setup.sh
+   ```
 
 3. Configure as variáveis de ambiente:
 
-- Copie o arquivo `.env.example` para `.env`
-- Edite o arquivo `.env` com suas configurações
+   - Copie o arquivo `.env.example` para `.env`
+   - Edite o arquivo `.env` com suas configurações
 
 ### Variáveis de ambiente
 
@@ -76,6 +76,41 @@ npm run build
 ```
 
 Os arquivos otimizados serão gerados na pasta `dist/`
+
+## Deploy no Netlify
+
+### Instalação do Netlify CLI
+
+Para instalar o Netlify CLI globalmente:
+
+```bash
+npm install netlify-cli -g
+```
+
+### Configuração do Netlify CLI
+
+1. Faça login na sua conta Netlify:
+
+   ```bash
+   netlify login
+   ```
+
+2. Vincule o projeto ao site do Netlify:
+
+   ```bash
+   netlify link
+   ```
+
+3. Para testar o deploy localmente:
+
+   ```bash
+   netlify build
+   netlify deploy --build --prod
+   ```
+
+### Deploy Automático
+
+O projeto está configurado para deploy automático no Netlify. Cada push para a branch principal acionará um novo deploy.
 
 ## Linting
 
