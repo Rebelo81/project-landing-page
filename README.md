@@ -2,6 +2,10 @@
 
 Este é um projeto de landing page com uma estrutura moderna e organizada.
 
+## 🌐 Demo
+
+Acesse o projeto online: [https://project-dnc.netlify.app/](https://project-dnc.netlify.app/)
+
 ## Estrutura do Projeto
 
 ```
@@ -30,17 +34,20 @@ project-landing-page/
 ## Configuração
 
 1. Clone o repositório:
+
 ```bash
 git clone https://github.com/Rebelo81/project-landing-page.git
 cd project-landing-page
 ```
 
 2. Execute o script de setup:
+
 ```bash
 ./scripts/setup.sh
 ```
 
 3. Configure as variáveis de ambiente:
+
 - Copie o arquivo `.env.example` para `.env`
 - Edite o arquivo `.env` com suas configurações
 
@@ -53,6 +60,7 @@ cd project-landing-page
 ## Desenvolvimento
 
 Para iniciar o servidor de desenvolvimento:
+
 ```bash
 npm start
 ```
@@ -62,6 +70,7 @@ O site estará disponível em `http://localhost:8080`
 ## Build
 
 Para criar a versão de produção:
+
 ```bash
 npm run build
 ```
@@ -71,6 +80,7 @@ Os arquivos otimizados serão gerados na pasta `dist/`
 ## Linting
 
 Para validar o código:
+
 ```bash
 npm run lint
 ```
@@ -78,6 +88,7 @@ npm run lint
 ## CI/CD
 
 O projeto inclui um pipeline de CI/CD que:
+
 - Valida HTML
 - Valida CSS
 - Valida JavaScript
@@ -85,4 +96,4 @@ O projeto inclui um pipeline de CI/CD que:
 
 ## Licença
 
-Este projeto está sob a licença MIT. 
+Este projeto está sob a licença MIT.
