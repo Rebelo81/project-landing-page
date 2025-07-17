@@ -137,18 +137,23 @@
                 <h2>Comece agora mesmo e dê o próximo passo da sua carreira</h2>
                 <form action="https://api.sheetmonkey.io/form/m3X3b3SkQeVoc1Dz5mY4pW" method="post" class="contact-form" id="contactForm" novalidate>
                     <div class="form-group">
-                        <input type="text" name="nome" placeholder="Nome" required minlength="3" pattern="[A-Za-zÀ-ÿ\s]+">
-                        <span class="error-message">Por favor, insira um nome válido (apenas letras)</span>
+                        <input type="text" id="nome" name="nome" placeholder="Nome" required minlength="3" pattern="[A-Za-zÀ-ÿ\s]+" class="form-input">
+                        <span class="error-message" id="nome-error">Por favor, insira um nome válido (apenas letras)</span>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="E-mail" required>
-                        <span class="error-message">Por favor, insira um e-mail válido</span>
+                        <input type="email" id="email" name="email" placeholder="E-mail" required class="form-input">
+                        <span class="error-message" id="email-error">Por favor, insira um e-mail válido</span>
                     </div>
                     <div class="form-group">
-                        <input type="tel" name="telefone" placeholder="Telefone" required pattern="\(\d{2}\)\s\d{5}-\d{4}">
-                        <span class="error-message">Por favor, insira um telefone válido (XX) XXXXX-XXXX</span>
+                        <input type="tel" id="telefone" name="telefone" placeholder="Telefone" required pattern="\(\d{2}\)\s\d{5}-\d{4}" class="form-input">
+                        <span class="error-message" id="telefone-error">Por favor, insira um telefone válido (XX) XXXXX-XXXX</span>
                     </div>
-                    <button type="submit" class="button">Acesse a ementa grátis</button>
+                    <div class="form-group">
+                        <textarea id="mensagem" name="mensagem" placeholder="Mensagem (opcional)" class="form-input"></textarea>
+                        <span class="error-message" id="mensagem-error"></span>
+                    </div>
+                    <button type="submit" id="submit-btn" class="button">Acesse a ementa grátis</button>
+                    <div id="form-status" class="form-status"></div>
                 </form>
             </div>
         </section>

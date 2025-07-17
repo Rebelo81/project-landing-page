@@ -96,7 +96,7 @@ if (anchorLinks.length > 0) {
 
 // Máscara para o campo de telefone
 document.addEventListener("DOMContentLoaded", function() {
-    const phoneInput = document.querySelector("input[name=\"telefone\"]");
+    const phoneInput = document.getElementById("telefone");
     if (phoneInput) {
         phoneInput.addEventListener("input", function(e) {
             let value = e.target.value.replace(/\D/g, "");
@@ -112,73 +112,355 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
             e.target.value = value;
+            
+            // Validação em tempo real após formatação
+            if (value.length === 0 || value.length === 15) {
+                clearError(phoneInput);
+            } else if (value.length > 0) {
+                showError(phoneInput, "Por favor, complete o número de telefone no formato (XX) XXXXX-XXXX");
+            }
         });
+        
         phoneInput.addEventListener("blur", function(e) {
-            // Ao perder o foco, só mantém se estiver completo
+            // Ao perder o foco, valida o formato completo
             const pattern = /^\(\d{2}\) \d{5}-\d{4}$/;
-            if (!pattern.test(e.target.value)) {
-                e.target.value = "";
+            if (!pattern.test(e.target.value) && e.target.value.length > 0) {
+                showError(phoneInput, "Por favor, insira um telefone válido no formato (XX) XXXXX-XXXX");
+            } else if (e.target.value.length === 0 && phoneInput.required) {
+                showError(phoneInput, "O campo Telefone é obrigatório");
+            } else {
+                clearError(phoneInput);
+                phoneInput.classList.add('valid');
             }
         });
     }
+    /**
+     * Conjunto de funções para validação dos campos do formulário
+     * Cada função retorna um objeto com:
+     * - isValid: boolean indicando se o campo é válido
+     * - message: string com mensagem de erro (se houver)
+     */
+    const validationFunctions = {
+        /**
+         * Valida se um campo obrigatório foi preenchido
+         * @param {string} value - Valor do campo
+         * @param {string} fieldName - Nome do campo para mensagem de erro
+         * @returns {Object} Resultado da validação
+         */
+        validateRequired: function(value, fieldName) {
+            if (!value.trim()) {
+                return {
+                    isValid: false,
+                    message: `O campo ${fieldName} é obrigatório.`
+                };
+            }
+            return { isValid: true };
+        },
+        
+        /**
+         * Valida se um e-mail está em formato válido
+         * @param {string} email - E-mail a ser validado
+         * @returns {Object} Resultado da validação
+         */
+        validateEmail: function(email) {
+            const re = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+            if (!re.test(String(email).toLowerCase())) {
+                return {
+                    isValid: false,
+                    message: "Por favor, insira um e-mail válido."
+                };
+            }
+            return { isValid: true };
+        },
+        
+        /**
+         * Valida se um telefone está no formato (XX) XXXXX-XXXX
+         * @param {string} phone - Telefone a ser validado
+         * @returns {Object} Resultado da validação
+         */
+        validatePhone: function(phone) {
+            const re = /^\(\d{2}\)\s\d{5}-\d{4}$/;
+            if (!re.test(phone)) {
+                return {
+                    isValid: false,
+                    message: "Por favor, insira um telefone válido no formato (XX) XXXXX-XXXX."
+                };
+            }
+            return { isValid: true };
+        },
+        
+        /**
+         * Valida se um nome contém apenas letras e espaços e tem pelo menos 3 caracteres
+         * @param {string} name - Nome a ser validado
+         * @returns {Object} Resultado da validação
+         */
+        validateName: function(name) {
+            const re = /^[A-Za-zÀ-ÿ\s]+$/;
+            if (!re.test(name)) {
+                return {
+                    isValid: false,
+                    message: "Por favor, insira um nome válido (apenas letras)."
+                };
+            }
+            if (name.trim().length < 3) {
+                return {
+                    isValid: false,
+                    message: "O nome deve ter pelo menos 3 caracteres."
+                };
+            }
+            return { isValid: true };
+        }
+    };
+    
+    // Função para mostrar erro
+    function showError(input, message) {
+        const errorElement = document.getElementById(`${input.id}-error`);
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        input.classList.add('invalid');
+    }
+    
+    // Função para limpar erro
+    function clearError(input) {
+        const errorElement = document.getElementById(`${input.id}-error`);
+        if (errorElement) {
+            errorElement.style.display = 'none';
+        }
+        input.classList.remove('invalid');
+    }
+    
+    // Função para validar um campo específico
+    function validateField(input) {
+        clearError(input);
+        
+        // Verificar se o campo está vazio (se for obrigatório)
+        if (input.required) {
+            const requiredValidation = validationFunctions.validateRequired(input.value, input.placeholder);
+            if (!requiredValidation.isValid) {
+                showError(input, requiredValidation.message);
+                return false;
+            }
+        }
+        
+        // Validações específicas por tipo de campo
+        switch (input.id) {
+            case 'nome':
+                const nameValidation = validationFunctions.validateName(input.value);
+                if (!nameValidation.isValid) {
+                    showError(input, nameValidation.message);
+                    return false;
+                }
+                break;
+                
+            case 'email':
+                const emailValidation = validationFunctions.validateEmail(input.value);
+                if (!emailValidation.isValid) {
+                    showError(input, emailValidation.message);
+                    return false;
+                }
+                break;
+                
+            case 'telefone':
+                const phoneValidation = validationFunctions.validatePhone(input.value);
+                if (!phoneValidation.isValid) {
+                    showError(input, phoneValidation.message);
+                    return false;
+                }
+                break;
+        }
+        
+        // Se chegou até aqui, o campo é válido
+        input.classList.add('valid');
+        return true;
+    }
+    
+    // Função de debounce para evitar validações excessivas
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            const context = this;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), wait);
+        };
+    }
+    
     // Validação do formulário
     const form = document.getElementById("contactForm");
     if (form) {
+        // Adicionar validação em tempo real para cada campo
+        const formInputs = form.querySelectorAll('.form-input');
+        formInputs.forEach(input => {
+            // Validar quando o campo perde o foco
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            // Limpar erro quando o usuário começa a digitar
+            input.addEventListener('input', function() {
+                clearError(this);
+                
+                // Validar após um pequeno delay (debounce)
+                if (input.id !== 'telefone') { // Telefone já tem validação específica
+                    const debouncedValidate = debounce(function() {
+                        if (input.value.length > 0) {
+                            validateField(input);
+                        }
+                    }, 500);
+                    debouncedValidate();
+                }
+            });
+        });
+        
+        // Validar formulário no envio
         form.addEventListener("submit", async function(e) {
             e.preventDefault();
             
-            if (form.checkValidity()) {
+            // Validar todos os campos
+            let isFormValid = true;
+            formInputs.forEach(input => {
+                if (input.required && !validateField(input)) {
+                    isFormValid = false;
+                }
+            });
+            
+            if (isFormValid) {
                 // Mostrar loading
-                const submitBtn = form.querySelector('button[type="submit"]');
+                const submitBtn = document.getElementById('submit-btn');
+                const formStatus = document.getElementById('form-status');
                 const originalText = submitBtn.textContent;
                 submitBtn.textContent = 'Enviando...';
                 submitBtn.disabled = true;
                 
-                try {
-                    // Preparar dados do formulário
-                    const formData = new FormData(form);
-                    
-                    // Enviar para SheetMonkey
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    if (response.ok) {
-                        // Sucesso: redirecionar para página de ementa
-                        alert("Formulário enviado com sucesso! Você será redirecionado para acessar a ementa completa do curso.");
+                /**
+                 * Função para enviar os dados do formulário para o servidor
+                 * Envia os dados via fetch API e trata a resposta
+                 * @returns {Promise<boolean>} Resultado do envio (sucesso ou falha)
+                 */
+                const sendFormData = async () => {
+                    try {
+                        // Preparar dados do formulário
+                        const formData = new FormData(form);
                         
-                        // Redirecionar para a página principal da DNC School onde podem encontrar a ementa
-                        setTimeout(() => {
-                            window.open("https://assets-global.website-files.com/66143495d3e01ad1a958beed/662bcea675351ac5fb014bf3_%5BEMENTA%20NOVA%20ID%5D%20Desenvolvedor%20Front-End-compressed_1.pdf", "_blank");
-                        }, 1000);
+                        // Adicionar data e hora do envio formatada para o Brasil
+                        const now = new Date();
+                        const dataFormatada = now.toLocaleDateString('pt-BR');
+                        const horaFormatada = now.toLocaleTimeString('pt-BR');
+                        formData.append('dataEnvio', `${dataFormatada} ${horaFormatada}`);
                         
-                        form.reset();
-                    } else {
-                        throw new Error('Erro no servidor');
+                        // Enviar para SheetMonkey
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        if (response.ok) {
+                            // Sucesso: mostrar mensagem e redirecionar para a ementa
+                            formStatus.innerHTML = '<div class="alert alert-success">Formulário enviado com sucesso! Você será redirecionado para acessar a ementa completa do curso.</div>';
+                            
+                            // Redirecionar para a ementa do curso
+                            setTimeout(() => {
+                                window.open("https://assets-global.website-files.com/66143495d3e01ad1a958beed/662bcea675351ac5fb014bf3_%5BEMENTA%20NOVA%20ID%5D%20Desenvolvedor%20Front-End-compressed_1.pdf", "_blank");
+                            }, 1500);
+                            
+                            // Limpar formulário
+                            form.reset();
+                            formInputs.forEach(input => {
+                                input.classList.remove('valid');
+                            });
+                            
+                            return true;
+                        } else {
+                            throw new Error('Erro no servidor');
+                        }
+                    } catch (error) {
+                        console.error('Erro ao enviar formulário:', error);
+                        formStatus.innerHTML = '<div class="alert alert-error">Erro ao enviar formulário. Tente novamente.</div>';
+                        return false;
                     }
-                } catch (error) {
-                    console.error('Erro ao enviar formulário:', error);
-                    alert("Erro ao enviar formulário. Tente novamente.");
-                } finally {
+                };
+                
+                // Verificar conexão com a internet antes de enviar
+                if (navigator.onLine) {
+                    try {
+                        await sendFormData();
+                    } catch (error) {
+                        console.error('Erro ao enviar formulário:', error);
+                        formStatus.innerHTML = '<div class="alert alert-error">Erro ao enviar formulário. Tente novamente.</div>';
+                    } finally {
+                        // Restaurar botão
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                } else {
+                    // Sem conexão com a internet
+                    formStatus.innerHTML = '<div class="alert alert-error">Sem conexão com a internet. Os dados serão enviados quando a conexão for restabelecida.</div>';
+                    
+                    // Salvar dados no localStorage para tentar enviar depois
+                    const formDataObj = {};
+                    formInputs.forEach(input => {
+                        formDataObj[input.name] = input.value;
+                    });
+                    formDataObj.dataEnvio = new Date().toISOString();
+                    
+                    // Salvar no localStorage
+                    const pendingForms = JSON.parse(localStorage.getItem('pendingForms') || '[]');
+                    pendingForms.push({
+                        action: form.action,
+                        data: formDataObj
+                    });
+                    localStorage.setItem('pendingForms', JSON.stringify(pendingForms));
+                    
                     // Restaurar botão
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
+                    
+                    // Adicionar evento para tentar enviar quando a conexão for restabelecida
+                    window.addEventListener('online', function trySubmitPendingForms() {
+                        const pendingForms = JSON.parse(localStorage.getItem('pendingForms') || '[]');
+                        if (pendingForms.length > 0) {
+                            formStatus.innerHTML = '<div class="alert alert-success">Conexão restabelecida. Enviando dados pendentes...</div>';
+                            
+                            // Tentar enviar formulários pendentes
+                            const submitPendingForms = async () => {
+                                const newPendingForms = [];
+                                
+                                for (const pendingForm of pendingForms) {
+                                    const formData = new FormData();
+                                    for (const key in pendingForm.data) {
+                                        formData.append(key, pendingForm.data[key]);
+                                    }
+                                    
+                                    try {
+                                        const response = await fetch(pendingForm.action, {
+                                            method: 'POST',
+                                            body: formData
+                                        });
+                                        
+                                        if (!response.ok) {
+                                            newPendingForms.push(pendingForm);
+                                        }
+                                    } catch (error) {
+                                        newPendingForms.push(pendingForm);
+                                    }
+                                }
+                                
+                                // Atualizar localStorage com formulários que ainda não foram enviados
+                                if (newPendingForms.length > 0) {
+                                    localStorage.setItem('pendingForms', JSON.stringify(newPendingForms));
+                                } else {
+                                    localStorage.removeItem('pendingForms');
+                                    window.removeEventListener('online', trySubmitPendingForms);
+                                    formStatus.innerHTML = '<div class="alert alert-success">Todos os dados pendentes foram enviados com sucesso!</div>';
+                                }
+                            };
+                            
+                            submitPendingForms();
+                        }
+                    });
                 }
-            } else {
-                const inputs = form.querySelectorAll("input");
-                inputs.forEach(input => {
-                    if (!input.validity.valid) {
-                        input.classList.add("invalid");
-                    }
-                });
             }
-        });
-        // Remove a classe invalid quando o usuário começa a digitar
-        form.querySelectorAll("input").forEach(input => {
-            input.addEventListener("input", function() {
-                this.classList.remove("invalid");
-            });
         });
     }
 });

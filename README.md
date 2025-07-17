@@ -4,7 +4,7 @@ Este é um projeto de landing page com uma estrutura moderna e organizada.
 
 ## 🌐 Demo
 
-Acesse o projeto online: [https://project-dnc.netlify.app/](https://project-dnc.netlify.app/)
+O projeto será disponibilizado em: [https://project-dnc.netlify.app/](https://project-dnc.netlify.app/) (em breve)
 
 ## Estrutura do Projeto
 
@@ -12,15 +12,16 @@ Acesse o projeto online: [https://project-dnc.netlify.app/](https://project-dnc.
 project-landing-page/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml            # CI/CD (validação de HTML/CSS/JS em PRs)
+│       └── ci.yml            # CI/CD (validação e deploy)
 ├── src/                      
-│   ├── assets/
-│   │   └── images/          # Imagens do projeto
+│   ├── icones/              # Ícones do projeto
+│   ├── imagens/             # Imagens do projeto
 │   ├── index.html           # Página principal
 │   ├── style.css            # Estilos CSS
 │   └── main.js              # JavaScript principal
 ├── scripts/
 │   └── setup.sh             # Script de configuração
+├── .env.example             # Modelo para variáveis de ambiente
 ├── .gitignore               # Arquivos ignorados pelo git
 ├── package.json             # Dependências e scripts
 └── README.md                # Este arquivo
@@ -57,6 +58,27 @@ project-landing-page/
 - `RECAPTCHA_SITE_KEY`: chave do reCAPTCHA v2/v3.
 - `NODE_ENV`: `development` ou `production`.
 
+### Configuração do Formulário
+
+O projeto inclui um formulário de captura de leads que envia os dados para uma planilha do Google Sheets através do serviço SheetMonkey. Para configurar:
+
+1. Crie uma planilha no Google Sheets para armazenar os dados
+2. Acesse [SheetMonkey](https://sheetmonkey.io/) e crie uma nova conexão
+3. Conecte sua planilha do Google Sheets
+4. Copie a URL do endpoint gerada pelo SheetMonkey
+5. Atualize o atributo `action` do formulário no arquivo `src/index.html`:
+
+   ```html
+   <form action="https://api.sheetmonkey.io/form/sua-url-aqui" method="post" class="contact-form" id="contactForm" novalidate>
+   ```
+
+O formulário inclui validação em tempo real para:
+- Nome (apenas letras, mínimo 3 caracteres)
+- E-mail (formato válido)
+- Telefone (formato brasileiro: (XX) XXXXX-XXXX)
+
+Também possui tratamento para erros de conexão, armazenando os dados localmente para reenvio quando a conexão for restabelecida.
+
 ## Desenvolvimento
 
 Para iniciar o servidor de desenvolvimento:
@@ -75,7 +97,7 @@ Para criar a versão de produção:
 npm run build
 ```
 
-Os arquivos otimizados serão gerados na pasta `dist/`
+Nota: Atualmente o script de build apenas exibe uma mensagem de sucesso. Para gerar arquivos otimizados na pasta `dist/`, será necessário implementar um processo de build completo.
 
 ## Deploy no Netlify
 
@@ -124,9 +146,10 @@ npm run lint
 
 O projeto inclui um pipeline de CI/CD que:
 
-- Valida HTML
-- Valida CSS
-- Valida JavaScript
+- Verifica a existência do arquivo package.json
+- Instala as dependências do projeto
+- Executa o build do projeto
+- Realiza deploy para GitHub Pages
 - Executa em cada push para main e em pull requests
 
 ## Licença
