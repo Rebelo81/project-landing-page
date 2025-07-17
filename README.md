@@ -68,6 +68,37 @@ npm run build
 
 Os arquivos otimizados serão gerados na pasta `dist/`
 
+## Deploy no Netlify
+
+### Instalação do Netlify CLI
+
+Para instalar o Netlify CLI globalmente:
+```bash
+npm install netlify-cli -g
+```
+
+### Configuração do Netlify CLI
+
+1. Faça login na sua conta Netlify:
+```bash
+netlify login
+```
+
+2. Vincule o projeto ao site do Netlify:
+```bash
+netlify link
+```
+
+3. Para testar o deploy localmente:
+```bash
+netlify build
+netlify deploy --build --prod
+```
+
+### Deploy Automático
+
+O projeto está configurado para deploy automático no Netlify. Cada push para a branch principal acionará um novo deploy.
+
 ## Linting
 
 Para validar o código:
